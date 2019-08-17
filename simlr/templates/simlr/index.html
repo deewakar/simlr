@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% load static %}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'simlr/main.css' %}">
+
+    <title>Simlr</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-sm navbar-dark">
+      <a class="navbar-brand" href="#">
+	<img src="{% static 'simlr/images/logo.png' %}" alt="Logo" style="width:180px;">
+      </a>
+      <form class="form-inline" action="{% url 'simlr:playlist' %}" method="post">
+	{% csrf_token %}
+	<input class="form-control mr-sm-2" type="text" placeholder="Enter artist name" name="seedartist" value="">
+	<input class="btn btn-success" type="submit" value="Create Playlist">
+      </form>
+    </nav>
+
+    <p>Listen to similar artists and bands based on artists you like</p>
+
+
+    <div class="container h-100" >
+      <div class="row h-100 justify-content-center align-items-center">
+    {% if current_playlist_url and seed_artist %}
+      <iframe width="1200" height="700" src="{{current_playlist_url}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen> </iframe>
+    {% elif seed_artist is not None and current_playlist_url is None %}
+    <p>There was an error while generating the playlist.</p>
+    {% else %}
+    {% endif %}
+    </div>
+    </div>
+
+
+  </body>
+</html>
